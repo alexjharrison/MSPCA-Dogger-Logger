@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePhotosTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('filepath');
-            $table->bigInteger('dog_id')->unsigned();
+            $table->bigInteger('dog_id')->unsigned()->nullable();
             $table->foreign('dog_id')->references('id')->on('dogs');
             $table->timestamps();
         });

@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Codecasts\Auth\JWT\ServiceProvider::class,
 
         /*
          * Application Service Providers...

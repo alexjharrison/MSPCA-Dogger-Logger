@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDogsTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateDogsTable extends Migration
         Schema::create('dogs', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('name');
-            $table->integer('age')->unsigned()->nullable();
+            $table->string('age')->nullable();
             $table->integer('weight')->unsigned()->nullable();
             $table->string('breed')->nullable();
             $table->timestamps();

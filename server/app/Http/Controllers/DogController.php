@@ -12,19 +12,9 @@ class DogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function fetchAll()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Dog::all();
     }
 
     /**
@@ -35,30 +25,22 @@ class DogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'age' => ['string'],
+            'weight' => ['integer'],
+            'breed' => ['string'],
+        ]);
+
+        $dog = new Dog;
+        $dog->name = $data['name'];
+        $dog->age = $data['age'];
+        $dog->weight = $data['weight'];
+        $dog->breed = $data['breed'];
+        $dog->save();
+        return $dog;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dog  $dog
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Dog $dog)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dog  $dog
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dog $dog)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -67,9 +49,23 @@ class DogController extends Controller
      * @param  \App\Models\Dog  $dog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dog $dog)
+    public function update(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id' => ['required', 'integer'],
+            'name' => ['string'],
+            'age' => ['string'],
+            'weight' => ['integer'],
+            'breed' => ['string'],
+        ]);
+        $dog = Dog::find($data['id']);
+        foreach ($data as $key => $value) {
+            if($key!='id'){
+                $dog->$key = $value;
+            }
+        }
+        $dog->save();
+        return $dog;
     }
 
     /**
@@ -78,8 +74,10 @@ class DogController extends Controller
      * @param  \App\Models\Dog  $dog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dog $dog)
+    public function destroy(Int $dogId)
     {
-        //
+        
+        Dog::destroy($dogId);
+        return Dog::all();
     }
 }
