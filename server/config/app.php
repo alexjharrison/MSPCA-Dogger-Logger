@@ -228,4 +228,11 @@ return [
 
     ],
 
+    /*
+    file directory paths
+    */
+    'directories' => [
+        'DogPhotos' => env('DOG_PHOTOS_DIR'),
+    ]
+
 ];
