@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dog;
+use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DogController extends Controller
 {
@@ -27,6 +29,7 @@ class DogController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
+            'photo_id' => ['integer'],
             'age' => ['string'],
             'weight' => ['integer'],
             'breed' => ['string'],
@@ -37,7 +40,9 @@ class DogController extends Controller
         $dog->age = $data['age'];
         $dog->weight = $data['weight'];
         $dog->breed = $data['breed'];
+        $dog->photo_id = $data['photo_id'];
         $dog->save();
+        
         return $dog;
     }
 
@@ -58,7 +63,7 @@ class DogController extends Controller
             'weight' => ['integer'],
             'breed' => ['string'],
         ]);
-        $dog = Dog::find($data['id']);
+        $dog = Dog::findOrFail($data['id']);
         foreach ($data as $key => $value) {
             if($key!='id'){
                 $dog->$key = $value;
@@ -76,8 +81,16 @@ class DogController extends Controller
      */
     public function destroy(Int $dogId)
     {
-        
-        Dog::destroy($dogId);
+        $dog = Dog::findOrFail($dogId);
+        $dogPhoto = Photo::find($dog->photo_id);
+        if($dogPhoto){
+            Storage::delete($dogPhoto->filepath);
+        }
+
+        //TODO delete dog walks
+
+        $dogPhoto->delete();
+        $dog->delete();
         return Dog::all();
     }
 }

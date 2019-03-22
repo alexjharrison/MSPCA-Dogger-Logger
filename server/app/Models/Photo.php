@@ -12,26 +12,12 @@ class Photo extends Model
      *
      * @var array
      */
-    // protected $fillable = [
-    //     'filepath', 'dog_id'
-    // ];
-
-    protected $casts = [
-        'dog_id' => 'integer',
+    protected $fillable = [
+        'filepath'
     ];
 
     public function dog()
     {
-        return $this->hasOne(Dog::class);
-    }
-
-    public function addDog(Dog $dog)
-    {
-        return $this->dog()->attach($dog->id);
-    }
-
-    public function removeDog(Dog $dog)
-    {
-        return $this->dog()->detach($dog->id);
+        return $this->belongsTo(Dog::class);
     }
 }

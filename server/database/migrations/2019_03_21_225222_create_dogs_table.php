@@ -19,6 +19,8 @@ class CreateDogsTable extends Migration
             $table->string('age')->nullable();
             $table->integer('weight')->unsigned()->nullable();
             $table->string('breed')->nullable();
+            $table->bigInteger('photo_id')->unsigned()->nullable();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
             $table->timestamps();
         });
     }

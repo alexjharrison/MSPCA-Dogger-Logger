@@ -14,12 +14,13 @@ class Dog extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'age', 'weight', 'breed'
+        'name', 'age', 'weight', 'breed', 'photo_id'
     ];
 
     protected $casts = [
         'age' => 'integer',
         'weight' => 'integer',
+        'photo_id' => 'integer'
     ];
 
 
@@ -29,17 +30,7 @@ class Dog extends Model
     }
 
     public function photo() {
-        return $this->belongsTo(Photo::class);
-    }
-
-    public function addPhoto(Photo $photo)
-    {
-        return $this->photo()->attach($photo->id);
-    }
-
-    public function removePhoto(Photo $photo)
-    {
-        return $this->photo()->detach($photo->id);
+        return $this->hasOne(Photo::class);
     }
 
 }

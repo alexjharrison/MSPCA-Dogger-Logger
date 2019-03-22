@@ -19,6 +19,7 @@ class Walk extends Model
         'mouthing_handlage', 'dog_reactions',
         'dog_reaction', 'times_seen_dog',
         'seen_dogs_reaction', 'other_concerns',
+        'user_id', 'dog_id'
     ];
 
     protected $casts = [
@@ -40,15 +41,5 @@ class Walk extends Model
     public function dog()
     {
         return $this->hasOne(Dog::class);
-    }
-
-    public function addWalker(User $walker)
-    {
-        return $this->walker()->attach($walker->id);
-    }
-
-    public function addDog(Dog $dog)
-    {
-        return $this->dog()->attach($dog->id);
     }
 }

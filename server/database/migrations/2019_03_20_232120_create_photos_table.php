@@ -16,8 +16,6 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('filepath');
-            $table->bigInteger('dog_id')->unsigned()->nullable();
-            $table->foreign('dog_id')->references('id')->on('dogs');
             $table->timestamps();
         });
     }

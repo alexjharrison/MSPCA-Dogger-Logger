@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dog;
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -12,20 +14,13 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function fetchOne(Int $dogId)
     {
-        //
+        $dog = Dog::findOrFail($dogId);
+        $photo = Photo::findOrFail($dog->photo_id);
+        return Storage::download($photo->filepath);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,41 +30,20 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'photo' => 'required|max:25000|file|mimes:jpg,jpeg,bmp,png,gif,',
+            'dog_id' => 'integer',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Photo $photo)
-    {
-        //
-    }
+        $dog = Dog::findOrFail('dog_id');
+        $this->destroy($dog->photo_id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Photo $photo)
-    {
-        //
-    }
+        $filepath = $request->photo->store('photos');
+        $photo = new Photo;
+        $photo->filepath = $filepath;
+        $photo->save();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Photo $photo)
-    {
-        //
+        return ['photo_id' => $photo->id];
     }
 
     /**
@@ -78,8 +52,11 @@ class PhotoController extends Controller
      * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Photo $photo)
+    public function destroy(Int $photoId)
     {
-        //
-    }
+        $photo = Photo::findOrFail($photoId);
+        Storage::delete($photo->filepath);
+        $photo->delete();
+        return "true";
+    }   
 }

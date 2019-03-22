@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateWalksTable extends Migration
 {
@@ -29,8 +29,8 @@ class CreateWalksTable extends Migration
             $table->text('other_concerns');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('dog_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('dog_id')->references('id')->on('dogs');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('dog_id')->references('id')->on('dogs')->onDelete('cascade');
             $table->timestamps();
         });
     }
