@@ -15,10 +15,9 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function fetchOne(Int $dogId)
+    public function fetchOne(Int $photoId)
     {
-        $dog = Dog::findOrFail($dogId);
-        $photo = Photo::findOrFail($dog->photo_id);
+        $photo = Photo::findOrFail($photoId);
         return Storage::download($photo->filepath);
     }
 
@@ -38,7 +37,9 @@ class PhotoController extends Controller
 
         $dog = Dog::find('dog_id');
         if($dog){
-            $this->destroy($dog->photo_id);
+            $dogPhoto = Photo::find($dog->photo_id);
+            Storage::delete($dogPhoto->filepath);
+            $this->remove($dog->photo_id);
         }
 
         $filepath = $request->photo->store('photos');
@@ -62,7 +63,11 @@ class PhotoController extends Controller
      * @param  \App\Models\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Int $photoId)
+    public function destroy (Request $request)
+    {
+        return $this->remove($request->id);
+    }
+    public function remove(Int $photoId)
     {
         $photo = Photo::findOrFail($photoId);
         Storage::delete($photo->filepath);

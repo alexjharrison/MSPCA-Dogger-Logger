@@ -28,9 +28,8 @@ Route::middleware('auth:api')->group(function() {
     Route::put('/dog','DogController@update');
     Route::delete('/dog/{dogId}','DogController@destroy');
     
-    Route::get('/photo/{dogId}','PhotoController@fetchOne');
+    Route::get('/photo/{photoId}','PhotoController@fetchOne');
     Route::post('/photo','PhotoController@store');
-    Route::put('/photo','PhotoController@update');
     Route::delete('/photo/{photoId}','PhotoController@destroy');
 
     Route::get('/walks/{dogId}','WalkController@fetchAll');

@@ -88,7 +88,7 @@ class DogController extends Controller
             Storage::delete($dogPhoto->filepath);
         }
         
-        $walks = Walk::where('dog_id',$dogId)->delete();
+        Walk::where('dog_id',$dogId)->delete();
 
 
         $dogPhoto->delete();

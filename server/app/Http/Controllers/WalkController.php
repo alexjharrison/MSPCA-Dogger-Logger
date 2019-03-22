@@ -14,7 +14,7 @@ class WalkController extends Controller
      */
     public function fetchAll(Int $dogId)
     {
-        return Walk::where('dog_id',$dogId);
+        return Walk::where('dog_id',$dogId)->get();
     }
 
 

@@ -60,7 +60,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $token = $this->tokenFromCredentials($request);
-        return ['token' => $token];
+        return [
+            'user' => $request->user(),
+            'token' => $token,
+        ];
     }
 
 
