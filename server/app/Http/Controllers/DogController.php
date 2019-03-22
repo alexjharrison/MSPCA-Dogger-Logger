@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dog;
 use App\Models\Photo;
+use App\Models\Walk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -86,8 +87,9 @@ class DogController extends Controller
         if($dogPhoto){
             Storage::delete($dogPhoto->filepath);
         }
+        
+        $walks = Walk::where('dog_id',$dogId)->delete();
 
-        //TODO delete dog walks
 
         $dogPhoto->delete();
         $dog->delete();

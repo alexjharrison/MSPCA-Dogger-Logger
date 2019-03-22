@@ -6,6 +6,7 @@ use App\Models\Dog;
 use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class PhotoController extends Controller
 {
@@ -35,13 +36,22 @@ class PhotoController extends Controller
             'dog_id' => 'integer',
         ]);
 
-        $dog = Dog::findOrFail('dog_id');
-        $this->destroy($dog->photo_id);
+        $dog = Dog::find('dog_id');
+        if($dog){
+            $this->destroy($dog->photo_id);
+        }
 
         $filepath = $request->photo->store('photos');
         $photo = new Photo;
         $photo->filepath = $filepath;
         $photo->save();
+
+        //resize image
+        // return $filepath;
+        // $image = Image::make($filepath)->resize(null, 250, function($constrain){
+        //     $constrain->aspectRatio();
+        // });
+        // $image->save($filepath);
 
         return ['photo_id' => $photo->id];
     }
