@@ -35,24 +35,37 @@ class PhotoController extends Controller
             'dog_id' => 'integer',
         ]);
 
-        $dog = Dog::find('dog_id');
+        //create photo folder if doesnt exist
+        if(!is_dir(public_path("photos"))){
+            mkdir(public_path("photos"), 0755);
+        }
+        
+        //compress image and convert to png
+        // $img = Image::make($request->file('photo'))->resize(null, 250, function($constrain){
+        //     $constrain->aspectRatio();
+        // })->encode('png');
+        $img = Image::make($request->file('photo'))->fit(300)->encode('png');
+
+        $hash = md5($img->__toString());
+        $filepath = "photos/{$hash}.png";
+        $img->save(public_path($filepath));
+        $filepath = "photos/{$hash}.png";
+
+        $dog = Dog::find($request->dog_id);
         if($dog){
-            $dogPhoto = Photo::find($dog->photo_id);
-            Storage::delete($dogPhoto->filepath);
-            $this->remove($dog->photo_id);
+            $dogPhoto = $dog->photo;
+            if($dogPhoto){
+                Storage::delete($dogPhoto->filepath);
+            }
         }
 
-        $filepath = $request->photo->store('photos');
+        // $filepath = $request->photo->store('photos');
         $photo = new Photo;
         $photo->filepath = $filepath;
         $photo->save();
-
-        //resize image
-        // return $filepath;
-        // $image = Image::make($filepath)->resize(null, 250, function($constrain){
-        //     $constrain->aspectRatio();
-        // });
-        // $image->save($filepath);
+        if($dog){
+            $photo->dog()->save($dog);
+        }
 
         return ['photo_id' => $photo->id];
     }

@@ -27,8 +27,8 @@ class CreateWalksTable extends Migration
             $table->integer('times_seen_dog')->unsigned();
             $table->text('seen_dogs_reaction');
             $table->text('other_concerns');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('dog_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('dog_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dog_id')->references('id')->on('dogs')->onDelete('cascade');
             $table->timestamps();

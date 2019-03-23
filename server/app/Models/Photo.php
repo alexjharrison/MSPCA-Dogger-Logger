@@ -18,6 +18,6 @@ class Photo extends Model
 
     public function dog()
     {
-        return $this->belongsTo(Dog::class);
+        return $this->hasOne(Dog::class);
     }
 }

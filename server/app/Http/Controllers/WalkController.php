@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dog;
 use App\Models\Walk;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class WalkController extends Controller
             'other_concerns' => ['required','string'],
             'dog_id' => ['required', 'integer'],
         ]);
-
+        $dog = Dog::findOrFail($request->dog_id);
         $walk = new Walk;
         $walk->pooped = $data['pooped'];
         $walk->peed = $data['peed'];
@@ -55,9 +56,13 @@ class WalkController extends Controller
         $walk->times_seen_dog = $data['times_seen_dog'];
         $walk->seen_dogs_reaction = $data['seen_dogs_reaction'];
         $walk->other_concerns = $data['other_concerns'];
-        $walk->user_id = $request->user()->id;
-        $walk->dog_id = $data['dog_id'];
+        
         $walk->save();
+
+        $user = $request->user();
+        $user->walks()->save($walk);
+        
+        $dog->walks()->save($walk);
         
         return $walk;
     }
@@ -85,7 +90,6 @@ class WalkController extends Controller
             'times_seen_dog' => [ 'integer'],
             'seen_dogs_reaction' => ['string'],
             'other_concerns' => ['string'],
-            'dog_id' => [ 'integer'],
         ]);
 
         $walk = Walk::findOrFail($request->id);

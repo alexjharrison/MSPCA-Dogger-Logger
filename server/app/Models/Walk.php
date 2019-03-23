@@ -35,11 +35,11 @@ class Walk extends Model
     
     public function walker()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function dog()
     {
-        return $this->hasOne(Dog::class);
+        return $this->belongsTo(Dog::class);
     }
 }

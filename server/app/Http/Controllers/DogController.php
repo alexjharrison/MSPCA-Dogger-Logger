@@ -37,11 +37,15 @@ class DogController extends Controller
         ]);
 
         $dog = new Dog;
-        $dog->name = $data['name'];
-        $dog->age = $data['age'];
-        $dog->weight = $data['weight'];
-        $dog->breed = $data['breed'];
-        $dog->photo_id = $data['photo_id'];
+        foreach ($data as $traitName => $traitValue) {
+            $dog->$traitName = $traitValue;
+        }
+        if($request->photo_id){
+            $photo = Photo::find($request->photo_id);
+            if($photo){
+                $photo->dog()->save($dog);
+            }
+        }
         $dog->save();
         
         return $dog;
@@ -63,6 +67,8 @@ class DogController extends Controller
             'age' => ['string'],
             'weight' => ['integer'],
             'breed' => ['string'],
+            'photo_id' => ['integer'],
+            'status' => ['required', 'string']
         ]);
         $dog = Dog::findOrFail($data['id']);
         foreach ($data as $key => $value) {
@@ -71,6 +77,10 @@ class DogController extends Controller
             }
         }
         $dog->save();
+        if($request->photo_id){
+            Photo::find($data['photo_id'])->dog()->save($dog);
+        }
+        
         return $dog;
     }
 

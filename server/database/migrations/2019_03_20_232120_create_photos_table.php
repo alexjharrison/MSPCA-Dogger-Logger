@@ -29,6 +29,6 @@ class CreatePhotosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('photos');
-        Storage::deleteDirectory('photos');
+        array_map('unlink', glob(public_path('photos').'/*'));
     }
 }

@@ -14,7 +14,7 @@ class Dog extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'age', 'weight', 'breed', 'photo_id'
+        'name', 'age', 'weight', 'breed', 'photo_id', 'status'
     ];
 
     protected $casts = [
@@ -26,11 +26,11 @@ class Dog extends Model
 
     public function walks()
     {
-        return $this->belongsToMany(Walk::class);
+        return $this->hasMany(Walk::class);
     }
 
     public function photo() {
-        return $this->hasOne(Photo::class);
+        return $this->belongsTo(Photo::class);
     }
 
 }
