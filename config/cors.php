@@ -14,7 +14,7 @@ return [
    
     'supportsCredentials' => true,
     'allowedOrigins' => ['https://doggerlogger.netlify.com','http://localhost:3000'],
-    //'allowedOriginsPatterns' => [],
+    'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],
