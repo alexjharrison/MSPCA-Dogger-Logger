@@ -17,7 +17,11 @@ class DogController extends Controller
      */
     public function fetchAll()
     {
-        return Dog::all();
+        $dogs = Dog::all();
+        $dogs->map(function($dog) {
+            $dog->photo->first();
+        });
+        return $dogs;
     }
 
     /**
