@@ -12,8 +12,9 @@ return [
     |
     */
    
-    'supportsCredentials' => true,
-    'allowedOrigins' => ['https://doggerlogger.netlify.com','http://localhost:3000'],
+    //'supportsCredentials' => true,
+    //'allowedOrigins' => ['https://doggerlogger.netlify.com','http://localhost:3000','https://doggerlogger.aharrison.xyz'],
+    'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
