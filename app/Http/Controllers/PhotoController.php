@@ -67,7 +67,7 @@ class PhotoController extends Controller
             $photo->dog()->save($dog);
         }
 
-        return ['photo' => $photo];
+        return ['photo' => $photo, 'dogs' => Dog::with(['photo', 'walks'])->get()];
     }
 
     /**
@@ -85,6 +85,6 @@ class PhotoController extends Controller
         $photo = Photo::findOrFail($photoId);
         Storage::delete($photo->filepath);
         $photo->delete();
-        return "true";
+        return Dog::with(['photo', 'walks'])->get();
     }   
 }

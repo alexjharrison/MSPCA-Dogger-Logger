@@ -50,7 +50,7 @@ class DogController extends Controller
         }
         $dog->save();
         
-        return $dog;
+        return Dog::with(['photo', 'walks'])->get();
     }
 
 
@@ -83,7 +83,7 @@ class DogController extends Controller
             Photo::find($data['photo_id'])->dog()->save($dog);
         }
         
-        return $dog;
+        return Dog::with(['photo', 'walks'])->get();
     }
 
     /**
@@ -105,6 +105,6 @@ class DogController extends Controller
 
         $dogPhoto->delete();
         $dog->delete();
-        return Dog::all();
+        return Dog::with(['photo', 'walks'])->get();
     }
 }

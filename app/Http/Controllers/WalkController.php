@@ -64,7 +64,7 @@ class WalkController extends Controller
         
         $dog->walks()->save($walk);
         
-        return $walk;
+        return Dog::with(['photo', 'walks'])->get();
     }
 
     /**
@@ -99,7 +99,7 @@ class WalkController extends Controller
             }
         }
         $walk->save();
-        return $walk;
+        return Dog::with(['photo', 'walks'])->get();
     }
     
 }
