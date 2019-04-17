@@ -67,7 +67,7 @@ class PhotoController extends Controller
             $photo->dog()->save($dog);
         }
 
-        return ['photo_id' => $photo->id];
+        return ['photo' => $photo];
     }
 
     /**
