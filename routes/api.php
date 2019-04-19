@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/walk','WalkController@store');
     Route::put('/walk','WalkController@update');
 
+    Route::get('/users','UserController@fetchAll');
+    Route::post('/adminify','UserController@adminify');
+
 });
 
 
