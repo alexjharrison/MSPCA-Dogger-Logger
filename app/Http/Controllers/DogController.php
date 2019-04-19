@@ -36,6 +36,7 @@ class DogController extends Controller
             'weight' => ['integer'],
             'breed' => ['string'],
             'status' => ['string'],
+            'gender' => ['string'],
         ]);
 
         $dog = new Dog;
@@ -70,7 +71,8 @@ class DogController extends Controller
             'weight' => ['integer'],
             'breed' => ['string'],
             'photo_id' => ['integer'],
-            'status' => ['string']
+            'status' => ['string'],
+            'gender' => ['string'],
         ]);
         $dog = Dog::findOrFail($data['id']);
         foreach ($data as $key => $value) {
