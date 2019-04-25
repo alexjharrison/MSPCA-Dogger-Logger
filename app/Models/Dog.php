@@ -18,7 +18,6 @@ class Dog extends Model
     ];
 
     protected $casts = [
-        'age' => 'integer',
         'weight' => 'integer',
         'photo_id' => 'integer'
     ];
