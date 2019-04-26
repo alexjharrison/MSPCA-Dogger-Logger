@@ -17,8 +17,8 @@ class Walk extends Model
         'pooped', 'peed', 'medica_concern',
         'jumps', 'jump_handlage', 'mouthings',
         'mouthing_handlage', 'dog_reactions',
-        'dog_reaction', 'times_seen_dog',
-        'seen_dogs_reaction', 'other_concerns',
+        'seen_dog_reaction', 'dogs_seen',
+        'dogs_seen_reacted', 'other_concerns',
         'user_id', 'dog_id'
     ];
 
@@ -27,8 +27,8 @@ class Walk extends Model
         'peed' => 'boolean',
         'jumps' => 'integer',
         'mouthings' => 'integer',
-        'dog_reactions' => 'integer',
-        'times_seen_dog' => 'integer',
+        'dogs_seen_reacted' => 'integer',
+        'dogs_seen' => 'integer',
         'user_id' => 'integer',
         'dog_id' => 'integer',
     ];

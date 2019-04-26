@@ -22,9 +22,9 @@ class CreateWalksTable extends Migration
             $table->text('jump_handlage');
             $table->integer('mouthings')->unsigned();
             $table->text('mouthings_handlage');
-            $table->boolean('dog_reactions');
-            $table->text('dog_reaction');
-            $table->integer('times_seen_dog')->unsigned();
+            $table->integer('dogs_seen_reacted')->unsigned();
+            $table->text('seen_dog_reaction');
+            $table->integer('dogs_seen')->unsigned();
             $table->text('seen_dogs_reaction');
             $table->text('other_concerns');
             $table->bigInteger('user_id')->unsigned()->nullable();
