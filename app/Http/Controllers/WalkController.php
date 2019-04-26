@@ -27,6 +27,7 @@ class WalkController extends Controller
      */
     public function store(Request $request)
     {
+/*
         $data = $request->validate([
             'dog_id' => ['required','integer'],
             'pooped' => ['required', 'boolean'],
@@ -41,6 +42,9 @@ class WalkController extends Controller
             'dogs_seen' => ['required','integer'],
             'other_concerns' => ['required','string'],
         ]);
+*/
+
+        $data = $request->all();
         $dog = Dog::findOrFail($request->dog_id);
         $walk = new Walk;
         $walk->pooped = $data['pooped'];
@@ -50,10 +54,9 @@ class WalkController extends Controller
         $walk->jump_handlage = $data['jump_handlage'];
         $walk->mouthings = $data['mouthings'];
         $walk->mouthings_handlage = $data['mouthings_handlage'];
-        $walk->dog_reactions = $data['dog_reactions'];
-        $walk->dog_reaction = $data['dog_reaction'];
-        $walk->times_seen_dog = $data['times_seen_dog'];
-        $walk->seen_dogs_reaction = $data['seen_dogs_reaction'];
+        $walk->dogs_seen_reacted = $data['dogs_seen_reacted'];
+        $walk->dogs_seen = $data['dogs_seen'];
+        $walk->seen_dog_reaction = $data['seen_dog_reaction'];
         $walk->other_concerns = $data['other_concerns'];
         
         $walk->save();
