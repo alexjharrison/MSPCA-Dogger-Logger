@@ -36,7 +36,6 @@ class WalkController extends Controller
             'jump_handlage' => ['required','string'],
             'mouthings' => [ 'required','integer'],
             'mouthings_handlage' => ['required','string'],
-            'dog_reactions' => ['required', 'boolean'],
             'dogs_seen_reacted' => ['required','integer'],
             'seen_dog_reaction' => [ 'required','integer'],
             'dogs_seen' => ['required','integer'],
