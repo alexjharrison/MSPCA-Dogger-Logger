@@ -21,24 +21,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return  $request->user();
 });
 
-Route::middleware('auth:api')->group(function() {
-    
-    Route::get('/dogs','DogController@fetchAll');
-    Route::post('/dog','DogController@store');
-    Route::put('/dog','DogController@update');
-    Route::delete('/dog/{dogId}','DogController@destroy');
-    
-    Route::get('/photo/{photoId}','PhotoController@fetchOne');
-    Route::post('/photo','PhotoController@store');
-    Route::delete('/photo/{photoId}','PhotoController@destroy');
+Route::middleware('auth:api')->group(function () {
 
-    Route::get('/walks/{dogId}','WalkController@fetchAll');
-    Route::post('/walk','WalkController@store');
-    Route::put('/walk','WalkController@update');
+    Route::get('/dogs', 'DogController@fetchAll');
+    Route::post('/dog', 'DogController@store');
+    Route::put('/dog', 'DogController@update');
+    Route::delete('/dog/{dogId}', 'DogController@destroy');
 
-    Route::get('/users','UserController@fetchAll');
-    Route::post('/adminify','UserController@adminify');
+    Route::get('/photo/{photoId}', 'PhotoController@fetchOne');
+    Route::post('/photo', 'PhotoController@store');
+    Route::delete('/photo/{photoId}', 'PhotoController@destroy');
 
+    Route::get('/walks/{dogId}', 'WalkController@fetchAll');
+    Route::post('/walk', 'WalkController@store');
+    Route::put('/walk', 'WalkController@update');
+
+    Route::get('/users', 'UserController@fetchAll');
+    Route::post('/adminify', 'UserController@adminify');
 });
-
-
