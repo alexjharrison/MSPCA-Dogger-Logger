@@ -7,6 +7,7 @@ use App\Models\Photo;
 use App\Models\Walk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DogController extends Controller
 {
@@ -49,6 +50,9 @@ class DogController extends Controller
                 $photo->dog()->save($dog);
             }
         }
+        
+        $dog->slug = $this->generateSlug($data['name']);
+
         $dog->save();
         
         return Dog::with(['photo', 'walks'])->get();
@@ -75,11 +79,13 @@ class DogController extends Controller
             'gender' => ['string'],
         ]);
         $dog = Dog::findOrFail($data['id']);
+        if($request->name != $dog->name) $dog->slug = $this->generateSlug($request->name);
         foreach ($data as $key => $value) {
             if($key!='id'){
                 $dog->$key = $value;
             }
         }
+
         $dog->save();
         if($request->photo_id){
             Photo::find($data['photo_id'])->dog()->save($dog);
@@ -108,5 +114,20 @@ class DogController extends Controller
         $dogPhoto->delete();
         $dog->delete();
         return Dog::with(['photo', 'walks'])->get();
+    }
+
+    private function generateSlug($name)
+    {
+        $slugs = Dog::all()->map->slug;
+        $incrementer = 1;
+        $slug = null;
+        if (!$slugs->contains(Str::slug($name))) return Str::slug($name);
+        while(!$slug){
+            if(!$slugs->contains($name.'-'.$incrementer)){
+                $slug = Str::slug($name).'-'.$incrementer;
+            }
+            $incrementer++;
+        }
+        return $slug;
     }
 }

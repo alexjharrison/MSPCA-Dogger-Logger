@@ -1,9 +1,9 @@
 <?php
 
-use App\User;
-use Faker\Factory;
 use App\Models\Dog;
 use App\Models\Walk;
+use App\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,8 +31,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
+            $name = $faker->firstName;
             Dog::create([
-                'name' => $faker->firstName,
+                'name' => $name,
+                'slug' => Str::slug($name),
                 'age' => $faker->randomDigitNotNull . ($i % 3 == 0 ? ' years' : ' months'),
                 'breed' => $faker->word,
                 'weight' => $faker->randomDigitNotNull,

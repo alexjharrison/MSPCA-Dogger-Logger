@@ -14,7 +14,7 @@ class Dog extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'age', 'weight', 'breed', 'photo_id', 'status'
+        'name', 'age', 'weight', 'breed', 'photo_id', 'status', 'slug'
     ];
 
     protected $casts = [
