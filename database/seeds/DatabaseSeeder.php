@@ -56,6 +56,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt(env('PASSWORD2')),
             'role' => 'walker'
         ]);
+        DB::table('users')->insert([
+            'name' => env('NAME3'),
+            'email' => env('EMAIL3'),
+            'password' => bcrypt(env('PASSWORD3')),
+            'role' => 'admin'
+        ]);
 
 
         $dogs = Dog::all();

@@ -20,7 +20,7 @@ class UserController extends Controller
             $user->role = 'admin';
             $user->save();
         }
-        return 'success';
+        return User::all();
     }
 
     public function fetchAll(Request $request)
